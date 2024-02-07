@@ -1,0 +1,59 @@
+	# 1) Check for spelling mistakes 
+	    
+  SELECT DISTINCT member_casual
+	FROM `my-data-project-12345-408507.tripdata_jan.six_month_data`
+----------------------------------------------------------------------
+  SELECT
+    DISTINCT rideable_type
+  FROM 
+    `my-data-project-12345-408507.tripdata_jan.six_month_data`
+-----------------------------------------------------------------------
+# 2)Removed null values and created new table 
+
+
+CREATE TABLE `my-data-project-12345-408507.tripdata_jan.blankless_data`AS
+SELECT 
+  ride_id,
+  rideable_type,
+  EXTRACT (MONTH FROM started_at) AS starting_month,
+  EXTRACT (MONTH FROM ended_at) AS ending_month,
+  EXTRACT (DAYOFWEEK FROM started_at) AS starting_day,
+  EXTRACT (DAYOFWEEK FROM ended_at) AS ending_day,
+  EXTRACT (TIME FROM started_at) AS starting_time,
+  EXTRACT (TIME from ended_at) AS ending_time,
+  TIMESTAMP_DIFF(ended_at, started_at, minute) AS diff_mins,
+  start_station_name,
+  end_station_name,
+  member_casual,
+FROM
+ `my-data-project-12345-408507.tripdata_jan.six_month_data`
+WHERE 
+   ((start_station_name IS NOT NULL AND end_station_name IS NOT NULL)AND(start_station_id IS NOT NULL AND  end_station_id IS NOT NULL))
+
+# 115 members started ride at end of month and ended ride at beginning of the next month
+# 3425 members started ride at end of a day and ended ride at next day
+# To avoid double count, starting of a day/month is considered
+
+# After removing null values,  total rows=  1213685
+
+# 3)Removed negative values and values exceeding one day in difference of time (minutes)
+
+
+CREATE TABLE `my-data-project-12345-408507.tripdata_jan.clean_data`AS
+SELECT 
+   rideable_type,
+   starting_month AS month,
+   starting_day AS day,
+   starting_time,
+   ending_time,
+   diff_mins,
+   start_station_name,
+   end_station_name,
+   member_casual
+FROM 
+   `my-data-project-12345-408507.tripdata_jan.blankless_data`
+WHERE
+     diff_mins > 0 
+     AND diff_mins < 1440 
+
+# Total rows = 1183505
