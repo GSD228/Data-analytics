@@ -1,0 +1,23 @@
+# MERGE DATA
+
+CREATE TABLE `my-data-project-12345-408507.tripdata_jan.six_month_data`AS
+(
+ SELECT *
+ FROM `my-data-project-12345-408507.tripdata_jan.tripdata_dec_2022`
+ UNION ALL
+ SELECT*
+ FROM `my-data-project-12345-408507.tripdata_jan.tripdata_jan`
+ UNION ALL
+ SELECT *
+ FROM `my-data-project-12345-408507.tripdata_jan.tripdata_feb`
+ UNION ALL
+ SELECT *
+ FROM `my-data-project-12345-408507.tripdata_jan.tripdata_mar`
+ UNION ALL
+ SELECT *
+ FROM `my-data-project-12345-408507.tripdata_jan.tripdata_apr`
+ UNION ALL
+ SELECT *
+ FROM `my-data-project-12345-408507.tripdata_jan.tripdata_may`
+);
+
