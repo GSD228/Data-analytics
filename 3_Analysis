@@ -1,0 +1,84 @@
+#	1) Extracted data of Top 10 routes preferred by members and casual riders
+
+
+SELECT 
+   DISTINCT (CONCAT( start_station_name,' to ',end_station_name)) AS route,
+   COUNT(rideable_type) AS no_of_rides,
+   member_casual,
+   rideable_type
+FROM `my-data-project-12345-408507.tripdata_jan.clean_data`
+WHERE LOWER(TRIM(member_casual)) = 'member'  
+GROUP BY rideable_type,start_station_name,end_station_name,member_casual
+ORDER BY no_of_rides DESC
+LIMIT 10
+----------------------------------------------------------------------------------------
+#	2) Extracted no_of_rides and average duration as bike,hour,day and month wise 
+
+SELECT
+   AVG(diff_mins) AS avg_ride_duration,
+   member_casual,
+   rideable_type,
+   day,
+   month,
+   EXTRACT(HOUR FROM starting_time) AS starting_hour,
+   EXTRACT(HOUR FROM ending_time) AS ending_hour,
+   COUNT (rideable_type) AS no_of_rides
+FROM
+ `my-data-project-12345-408507.tripdata_jan.clean_data`
+GROUP BY 
+   member_casual,rideable_type,day,month,starting_hour,ending_hour
+ORDER BY
+   AVG(diff_mins) DESC
+----------------------------------------------------------------------------------
+# 3) Average and max duration of total rides taken
+
+
+SELECT
+   AVG(diff_mins) AS avg_ride_duration,
+   max(diff_mins) AS max_ride_duration,
+FROM
+ `my-data-project-12345-408507.tripdata_jan.clean_data`
+---------------------------------------------------------
+# AVERAGE DURATION, MEMBER_CASUAL WISE
+SELECT
+   AVG(diff_mins) AS avg_ride_duration,
+   member_casual
+FROM
+ `my-data-project-12345-408507.tripdata_jan.clean_data`
+GROUP BY
+   member_casual
+---------------------------------------------------------
+# BIKE WISE AVG DURATION
+SELECT
+   AVG(diff_mins) AS avg_ride_duration,
+   rideable_type
+FROM
+ `my-data-project-12345-408507.tripdata_jan.clean_data`
+GROUP BY
+   rideable_type
+--------------------------------------------------------
+#	4) Analysed  the extracted data in spreadsheet
+
+	• Clear formatting
+	• Edit - find & replace days and months
+
+DAYS OF WEEK
+1  = Sunday
+2 =  Monday
+3 =  Tuesday
+4 =  Wednesday
+5 =  Thursday
+6 =  Friday
+7 =  Saturday
+
+MONTH
+11 = Nov
+12 = Dec
+1 =  Jan
+2 =  Feb
+3 = Mar
+4 = Apr
+
+and Created pivot tables 
+-----------------------------------------------------------------------------
+   
