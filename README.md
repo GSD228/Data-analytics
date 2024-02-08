@@ -25,32 +25,36 @@ Until now, Cyclistic’s marketing strategy relied on building general awareness
 
 ## The Business Task
 
-The goal of this case study is to provide clear insights for designing marketing strategies aimed at converting casual riders into annual members. Towards this goal, I asked the following questions:
+The objective of this case study is to design data-driven marketing strategy to turn casual riders into annual members. The following questions act as guidelines throughout the project;
 
 > 1. How do annual members and casual riders use Cyclistic bikes differently?
 > 2. Why would casual riders buy Cyclistic annual memberships?
-> 3. How can Cyclistic use digital media to influence casual riders to become members? 
+> 3. How can Cyclistic use digital media to influence casual riders to become members?
 
-## Preparing the Data 
+## Five Step Solution
+
+### PREPARE
 
 This case study uses Cyclistic's historical trip data (previous 6 months) to analyze and identify trends. The data has been made available by Motivate International Inc. under and open license. The data can be dowloaded [here.](https://divvy-tripdata.s3.amazonaws.com/index.html)
 
 This data is reliable, original, comprehensive and current as it is internally collected and stored safely by Cyclistic from June 2020 to present month. Personally identifiable information  such as credit card numbers has been removed because of data-privacy issues.
 
-The data selected for use covers 6 months from November 2022 to April 2023. Each month has a separate dataset. The datasets are organized in tabular format and have 13 columns. Combined, the datasets have 1585555 rows. The **member_casual** column will allow me to group, aggregate and compare trends between casual riders and member riders. 
+The data selected for use covers 6 months from November 2022 to April 2023. Each month has a separate dataset. The datasets are merged together in a single tabular format having 13 columns and 1585555 rows. 
 
-## Processing the Data from Dirty to Clean
+Why 6 month data? Due to storage constraints in bigquery, only these six months were available in a sequential manner.
 
-### Tools
-To process the data from dirty to clean, I chose to use **SQL.** because, it is relatively fast and thus useful in dealing with huge dasets.
+### PROCESS
 
-### Cleaning the data
+#### Tools
+To process the data from dirty to clean, I picked **SQL.**  Because, it is relatively fast and useful in dealing with huge datasets.
+
+#### Cleaning the data
 
 After reading in and combining the 6 datasets into a single dataframe, the first step in data cleaning was to identify spelling mistakes and duplicates,if any. 
 
 Next, i removed blank cells (null values) and seperated out hour,days,month from the timestamp and put together in a single table.
 
-### Transforming the data
+#### Transforming the data
 
 I created the **diff_mins** column by getting the difference between the ended_at and started_at columns in minutes.
 
@@ -60,7 +64,7 @@ Upon getting the summary to ensure data was ready for analysis, I discovered tha
 
 Finally, I got the summary of the data and concluded the data was ready for analysis. 
 
-## Analyze Data to Answer Questions
+### ANALYZE
 
 In this step, I analyzed the cleaned data to find out how annual members and casual riders use Cyclistic bikes differently.
 
@@ -72,14 +76,14 @@ Then, analysed the extracted data in spreadsheet using pivot tables on various c
 
 Finally, I uploaded these data in tableau for visualization.
 
-## Sharing Insights Through Visualization 
+### SHARE
 
-In this step, I've created captivating visualizations using **Tableau** to communicate the results of my analysis. Feel free to checkout my visualizations and insights [here.](https://docs.google.com/presentation/d/1POJvKukLZIi01EyL__qKeCHKIPrxzsmoBueLVLKxbBo/edit?usp=sharing)
+In this step, I've created captivating visualizations using **Tableau** to display the results of my analysis. Feel free to checkout my visualizations and insights [here.](https://docs.google.com/presentation/d/1POJvKukLZIi01EyL__qKeCHKIPrxzsmoBueLVLKxbBo/edit?usp=sharing)
 
-## Key takeaways
+### ACT
 
-> 1. Annual membership holders are found to be regular school/office goers, whereas casual riders can be categorized into two segments based on purpose as regular work and recreational purposes.
+> 1. Annual membership holders are found to be regular school/office goers. Whereas, casual riders can be categorized into two segments based on purpose as regular work and recreational purposes.
 
-> 2. From the analysis, it is evident that casual riders take long duration rides than members. Therefore, Offers can be made based on duration of rides.
+> 2. From the analysis, it is evident that casual riders take long duration rides than members. Therefore, offers can be made based on duration of rides.
 
-> 3. Advertisements can be made focussing non-member regular riders, especially targetting college students who takes ride without annual membership.
+> 3. Advertisements can be made focussing non-member regular riders, especially targetting college students who takes ride without annual membership and promote evening & weekend rides with special benefits.
